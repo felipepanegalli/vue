@@ -42,8 +42,21 @@
 	<br>
 	
 	<div v-if="activedView == 1">
-		<form action="" name="form">
-			Test: <input type="text">
+		<form name="form">
+			
+			<label for="vencimento">Vencimento:</label>
+			<input type="text" v-model="bill.date_due"><br><br>
+			
+			<label for="conta">Conta:</label>
+			<select v-model="bill.name">
+				<option v-for="o in names" value="{{ o }}">{{ o }}</option>
+			</select><br><br>
+
+			<label for="valor">Valor:</label>
+			<input type="text" v-model="bill.value"><br><br>
+
+			<input type="button" v-on:click="submit" value="Enviar">
+
 		</form>
 	</div>
 
