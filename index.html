@@ -15,29 +15,38 @@
 			</li>
 		</ul>
 	</nav>
-	
-	<table border="1" cellpadding="10">
-		<thead>
-			<tr>
-				<td>#</td>
-				<th>Vencimento</th>
-				<th>Nome</th>
-				<th>Valor</th>
-				<th>Paga?</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr v-for="(id, o) in bills">
-				<td>{{ id+1 }}</td>
-				<td>{{ o.date_due }}</td>
-				<td>{{ o.name }}</td>
-				<td>{{ o.value }}</td>
-				<td>{{ o.done }}</td>
-			</tr>
-		</tbody>	
-	</table>
 
+	<div v-if="activedView == 0">
+		<table border="1" cellpadding="10">
+			<thead>
+				<tr>
+					<td>#</td>
+					<th>Vencimento</th>
+					<th>Nome</th>
+					<th>Valor</th>
+					<th>Paga?</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="(id, o) in bills">
+					<td>{{ id+1 }}</td>
+					<td>{{ o.date_due }}</td>
+					<td>{{ o.name }}</td>
+					<td>{{ o.value }}</td>
+					<td>{{ o.done }}</td>
+				</tr>
+			</tbody>	
+		</table>
+	</div>
 	
+	<br>
+	
+	<div v-if="activedView == 1">
+		<form action="" name="form">
+			Test: <input type="text">
+		</form>
+	</div>
+
 	<script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>
 </body>
