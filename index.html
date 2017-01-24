@@ -4,6 +4,19 @@
 	<meta charset="UTF-8">
 	<title>Contas a Receber</title>
 </head>
+
+<style>
+	.pago{
+		color: green;
+	}
+	.nao-pago{
+		color:red;
+	}
+</style>
+
+
+
+
 <body id="app">
 	<h1>{{ title }}</h1>
 	<h3>{{ status }}</h3>
@@ -34,7 +47,9 @@
 					<td>{{ o.date_due }}</td>
 					<td>{{ o.name }}</td>
 					<td>{{ o.value | currency 'R$ ' 2 }}</td>
-					<td>{{ o.done | doneLabel }}</td>
+					<td :class="{'pago': o.done, 'nao-pago' : !o.done}">
+						{{ o.done | doneLabel }}
+					</td>
 					<td>
 						<a href="#" @click.prevent="loadBill(o)">Editar</a>
 						<a href="#" @click.prevent="deleteBill(o)">Excluir</a>
