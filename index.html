@@ -46,8 +46,9 @@
 						{{ o.done | doneLabel }} 
 					</td>
 					<td>
-						<button @click.prevent="loadBill(o)">Editar</button>
-						<button id="show-modal" @click="showModal = true">Excluir</button>
+						<button @click.prevent="loadBill(o)"> Editar </button>
+						<button @click.prevent="deleteBill(o)"> Excluir </button>
+						<button id="show-modal" @click="showModal = true"> Excluir com modal </button>
 					</td>
 				</tr>
 			</tbody>	
@@ -108,7 +109,7 @@
 
 						<div class="modal-footer">
 							<slot name="footer">
-								<a href="#"  @click.prevent="deleteBill(o)"> Excluir </a>
+								<button  @click.prevent="deleteBill(o)"> Excluir </button>
 								<button  @click="$emit('close')"> Cancelar </button>
 							</slot>
 						</div>
