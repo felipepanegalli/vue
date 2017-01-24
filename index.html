@@ -11,7 +11,7 @@
 	<nav>
 		<ul>
 			<li v-for="o in menus">
-				<a href="javascript:void(0)" v-on:click="showView(o.id)">{{ o.name}}</a>
+				<a href="#" @click.prevent="showView(o.id)">{{ o.name}}</a>
 			</li>
 		</ul>
 	</nav>
@@ -25,6 +25,7 @@
 					<th>Nome</th>
 					<th>Valor</th>
 					<th>Paga?</th>
+					<th>Ações</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,8 +33,12 @@
 					<td>{{ id+1 }}</td>
 					<td>{{ o.date_due }}</td>
 					<td>{{ o.name }}</td>
-					<td>{{ o.value }}</td>
-					<td>{{ o.done }}</td>
+					<td>{{ o.value | currency 'R$ ' 2 }}</td>
+					<td>{{ o.done | doneLabel }}</td>
+					<td>
+						<a href="#" @click.prevent="loadBill(o)">Editar</a>
+						<a href="#" @click.prevent="deleteBill(o)">Excluir</a>
+					</td>
 				</tr>
 			</tbody>	
 		</table>
@@ -55,7 +60,7 @@
 			<label for="valor">Valor:</label>
 			<input type="text" v-model="bill.value"><br><br>
 
-			<input type="button" v-on:click="submit" value="Enviar">
+			<input type="button" @click="submit" value="Enviar">
 
 		</form>
 	</div>

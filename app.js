@@ -8,10 +8,12 @@ var app = new Vue({
 			{id: 1, name: "Criar conta"}
 		],
 		activedView: 1,
+		formType: 'insert',
 		bill:{
 			date_due: '',
 			name: '',
-			value: 0
+			value: 0,
+			done: 0
 		},
 		names:[
 			'Conta de Luz',
@@ -46,10 +48,39 @@ var app = new Vue({
 	methods:{
 		showView: function (id){
 			this.activedView = id;
+			if(id == 1){
+				this.formType = 'insert';
+			}
 		},
 		submit: function(){
-			this.bills.push(this.bill);
+			if(this.formType == 'insert'){
+				this.bills.push(this.bill);
+			}
+
+			this.bill = {
+			date_due: '',
+			name: '',
+			value: 0,
+			done: 0
+			};
+
 			this.activedView = 0;
+		},
+		loadBill: function (id){
+			this.bill = id;
+			this.activedView = 1;
+			this.formType = 'update';
+		},
+		deleteBill: function (id){
+			this.bills.$remove(id);
 		}
+	}
+});
+
+Vue.filter('doneLabel', function(value){
+	if(value == 0){
+		return "Não Paga"
+	}else{
+		return "Paga"
 	}
 });
