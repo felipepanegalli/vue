@@ -1,129 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Contas a Receber</title>
+    <meta charset="UTF-8">
+    <title>Contas a Receber</title>
 </head>
 <link rel="stylesheet" href="style.css">
 
 <body id="app">
-	<h1>{{ title }}</h1>
-	<h3 :class="{'pago' : status == 'Nenhuma conta a pagar', 'n-conta' : status == 'Nenhuma conta cadastrada'}">
-		{{ status }}
-	</h3>
-	
-<!-- MENU -->
-	<nav>
-		<ul>
-			<li v-for="o in menus">
-				<a href="#" @click.prevent="showView(o.id)">{{ o.name}}</a>
-			</li>
-		</ul>
-	</nav>
-<!-- FIM DO MENU -->
-
-<!-- LISTAGEM DOS DADOS -->
-
-	<div v-if="activedView == 0">
-		<table border="1" cellpadding="10">
-			<thead>
-				<tr>
-					<td>#</td>
-					<th>Vencimento</th>
-					<th>Nome</th>
-					<th>Valor</th>
-					<th>Status</th>
-					<th>Ações</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="(id, o) in bills">
-					<td>{{ id+1 }}</td>
-					<td>{{ o.date_due }}</td>
-					<td>{{ o.name }}</td>
-					<td>{{ o.value | currency 'R$ ' 2 }}</td>
-					<td :class="{'pago': o.done, 'nao-pago' : !o.done}">
-						{{ o.done | doneLabel }} 
-					</td>
-					<td>
-						<button @click.prevent="loadBill(o)"> Editar </button>
-						<button @click.prevent="deleteBill(o)"> Excluir </button>
-						<button id="show-modal" @click="showModal = true"> Excluir com modal </button>
-					</td>
-				</tr>
-			</tbody>	
-		</table>
-	</div>
-
-<!-- FIM DAS LISTAGEM -->
-	
-	<br>
-
-<!--FORM DE EDIÇÃO DOS DADOS-->	
-	<div v-if="activedView == 1">
-		<form name="form">
-			
-			<label for="vencimento">Vencimento:</label>
-			<input type="text" v-model="bill.date_due"><br><br>
-			
-			<label for="conta">Conta:</label>
-			<select v-model="bill.name">
-				<option v-for="o in names" value="{{ o }}">{{ o }}</option>
-			</select><br><br>
-
-			<label for="valor">Valor:</label>
-			<input type="text" v-model="bill.value"><br><br>
-
-			<label for="valor">Status do pagamento:</label>
-			<select v-model="bill.done">
-				<option v-for="o in payment" value="{{ o.id }}">{{ o.id }}</option>
-			</select><br><br>
-
-			<input type="button" @click="submit" value="Enviar">
-
-		</form>
-	</div>
-<!--FIM DO FORM-->
-
-	<br>
-	<br>
-
-<!--MODAL-->
-	<script type="text/x-template" id="modal-template">
-		<transition name="modal">
-			<div class="modal-mask">
-				<div class="modal-wrapper">
-					<div class="modal-container">
-
-						<div class="modal-header">
-							<slot name="header">
-								<h3>Deseja excluir a conta?</h3>
-							</slot>
-						</div>
-
-						<div class="modal-body">
-							<slot name="body">
-								Atenção! Essa alteração não poderá ser desfeita porteriormente.
-							</slot>
-						</div>
-
-						<div class="modal-footer">
-							<slot name="footer">
-								<button  @click.prevent="deleteBill(o)"> Excluir </button>
-								<button  @click="$emit('close')"> Cancelar </button>
-							</slot>
-						</div>
-					</div>
-				</div>
-			</div>
-		</transition>
-	</script>
-	<modal v-if="showModal" @close="showModal = false"></modal>
-<!--Fim do modal-->
+<!--<app-component></app-component>-->
+<router-view></router-view>
 
 <!--Declaração dos scripts-->
-	<script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
-	<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
+<script type="text/javascript" src="node_modules/vue-router/dist/vue-router.min.js"></script>
+<script type="text/javascript" src="app.js"></script>
 
 </body>
 </html>
